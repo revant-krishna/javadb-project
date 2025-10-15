@@ -4,27 +4,28 @@ import com.example.studentcrud.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+
 @RestController
 @RequestMapping("/students")
 public class StudentController {
-@Autowired
+    @Autowired
     private StudentRepository studentRepository;
-// CREATE
+
     @PostMapping
     public Student createStudent(@RequestBody Student student) {
         return studentRepository.save(student);
     }
-// READ All
+
     @GetMapping
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
-// READ One
+
     @GetMapping("/{id}")
     public Student getStudentById(@PathVariable Long id) {
         return studentRepository.findById(id).orElse(null);
     }
-// UPDATE
+
     @PutMapping("/{id}")
     public Student updateStudent(@PathVariable Long id, @RequestBody Student updatedStudent) {
         Student student = studentRepository.findById(id).orElse(null);
@@ -35,7 +36,7 @@ public class StudentController {
         }
         return null;
     }
-// DELETE
+
     @DeleteMapping("/{id}")
     public String deleteStudent(@PathVariable Long id) {
         studentRepository.deleteById(id);
